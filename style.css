@@ -1,0 +1,373 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Georgia", serif;
+}
+
+:root {
+  --env-width: min(90vw, 340px);
+  --env-height: calc(var(--env-width) * 0.71);
+  --letter-width: calc(var(--env-width) * 0.82);
+  --letter-height: calc(var(--env-height) * 0.78);
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffd6e8, #ffc0cb, #ffe4ec);
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 20px;
+}
+
+/* Main container */
+.main-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Floating Hearts */
+.hearts-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  bottom: -50px;
+  color: rgba(255, 105, 180, 0.6);
+  animation: floatUp linear infinite;
+  font-size: 20px;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Main Scene */
+.scene {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(10px, 3vw, 40px);
+  flex-wrap: nowrap;
+  width: 100%;
+  max-width: 1000px;
+  z-index: 2;
+}
+
+/* Envelope Wrapper */
+.envelope-wrapper {
+  text-align: center;
+  animation: floatEnvelope 3s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes floatEnvelope {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Envelope */
+.envelope {
+  position: relative;
+  width: var(--env-width);
+  height: var(--env-height);
+}
+
+/* Back */
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: #ff9bb3;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.18);
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Side folds */
+.envelope-back::before,
+.envelope-back::after {
+  content: "";
+  position: absolute;
+  width: 70%;
+  aspect-ratio: 1 / 1;
+  background: rgba(255,255,255,0.18);
+  transform: rotate(45deg);
+}
+
+.envelope-back::before {
+  top: 45%;
+  left: -18%;
+}
+
+.envelope-back::after {
+  top: 45%;
+  right: -18%;
+}
+
+/* Letter */
+.letter {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(65%);
+  width: var(--letter-width);
+  height: var(--letter-height);
+  background: #fffafc;
+  border-radius: 12px;
+  padding: clamp(14px, 2vw, 20px);
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  z-index: 2;
+  transition: transform 1.2s ease, opacity 1s ease;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.letter h2 {
+  color: #e91e63;
+  margin-bottom: 10px;
+  font-size: clamp(18px, 3vw, 24px);
+}
+
+.letter p {
+  color: #7b294a;
+  font-size: clamp(12px, 2vw, 15px);
+  line-height: 1.6;
+}
+
+.signature {
+  margin-top: 12px;
+  font-weight: bold;
+  color: #d63384;
+}
+
+/* Flap */
+.flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #ff7fa4;
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  transform-origin: top;
+  transition: transform 1s ease;
+  z-index: 4;
+  border-radius: 12px 12px 0 0;
+}
+
+/* Heart Button */
+.heart-seal {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(48px, 8vw, 58px);
+  height: clamp(48px, 8vw, 58px);
+  background: #ff3b7f;
+  color: white;
+  font-size: clamp(24px, 4vw, 30px);
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  z-index: 5;
+  box-shadow: 0 5px 15px rgba(255, 59, 127, 0.5);
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.heart-seal:hover {
+  transform: translateX(-50%) scale(1.08);
+}
+
+/* OPEN */
+.envelope.open .flap {
+  transform: rotateX(180deg);
+}
+
+.envelope.open .letter {
+  transform: translateX(-50%) translateY(-55%);
+  opacity: 1;
+}
+
+.envelope.open .heart-seal {
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Click Text */
+.click-text {
+  margin-top: 16px;
+  color: #c2185b;
+  font-size: clamp(14px, 2.5vw, 18px);
+  font-weight: bold;
+  animation: blinkText 1.5s infinite;
+}
+
+@keyframes blinkText {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Roses */
+.rose {
+  position: relative;
+  width: clamp(60px, 10vw, 90px);
+  height: clamp(170px, 28vw, 250px);
+  animation: sway 3s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.rose-right {
+  animation-delay: 1s;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.flower {
+  position: relative;
+  width: clamp(55px, 9vw, 80px);
+  height: clamp(55px, 9vw, 80px);
+  margin: 0 auto;
+}
+
+.petal {
+  position: absolute;
+  width: 55%;
+  height: 55%;
+  background: radial-gradient(circle, #ff9ec4, #ff4f93);
+  border-radius: 50%;
+}
+
+.p1 { top: 12%; left: 22%; }
+.p2 { top: 25%; left: 0; }
+.p3 { top: 25%; right: 0; }
+.p4 { top: 48%; left: 22%; }
+
+.center {
+  width: 42%;
+  height: 42%;
+  background: #ff2e7a;
+  top: 30%;
+  left: 29%;
+  z-index: 2;
+}
+
+.stem {
+  width: 8px;
+  height: clamp(95px, 16vw, 140px);
+  background: linear-gradient(to bottom, #3f9b4f, #1f6f35);
+  margin: -5px auto 0;
+  border-radius: 10px;
+}
+
+.leaf {
+  position: absolute;
+  width: clamp(24px, 4vw, 35px);
+  height: clamp(12px, 2vw, 18px);
+  background: #4caf50;
+  border-radius: 50% 0 50% 0;
+}
+
+.leaf1 {
+  top: 48%;
+  left: 10%;
+  transform: rotate(-30deg);
+}
+
+.leaf2 {
+  top: 62%;
+  right: 10%;
+  transform: rotate(140deg);
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .scene {
+    gap: 16px;
+  }
+
+  .rose {
+    transform: scale(0.9);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  body {
+    padding: 25px 15px 40px;
+  }
+
+  .scene {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .rose {
+    height: 140px;
+    width: 70px;
+  }
+
+  .rose-left {
+    order: 1;
+  }
+
+  .envelope-wrapper {
+    order: 2;
+  }
+
+  .rose-right {
+    order: 3;
+  }
+
+  .letter {
+    overflow-y: auto;
+  }
+}
+
+/* Extra Small Phones */
+@media (max-width: 400px) {
+  :root {
+    --env-width: min(92vw, 300px);
+  }
+
+  .letter p {
+    line-height: 1.5;
+  }
+
+  .click-text {
+    margin-top: 12px;
+  }
+}

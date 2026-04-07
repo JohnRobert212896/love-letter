@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Romantic Love Letter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="romantic music.mp3" type="audio/mpeg">
+    Your browser does not support audio.
+  </audio>
+
+  <!-- Floating Hearts -->
+  <div class="hearts-container"></div>
+
+  <div class="scene">
+
+    <!-- Left Rose -->
+    <div class="rose rose-left">
+      <div class="flower">
+        <div class="petal p1"></div>
+        <div class="petal p2"></div>
+        <div class="petal p3"></div>
+        <div class="petal p4"></div>
+        <div class="petal center"></div>
+      </div>
+      <div class="stem"></div>
+      <div class="leaf leaf1"></div>
+      <div class="leaf leaf2"></div>
+    </div>
+
+    <!-- Envelope -->
+    <div class="envelope-wrapper">
+      <div class="envelope" id="envelope">
+        <div class="envelope-back"></div>
+
+        <!-- Letter Hidden Inside -->
+        <div class="letter" id="letter">
+          <h2>For My Crush 💖</h2>
+          <p>
+            Seeing you makes my day instantly better.
+            You are so pretty, like Queen Z. You look
+            so sweet and lovely. I can’t help but admire you.
+            — JRJDev 🌹
+          </p>
+          <p class="signature">— Secret Admirer 🌹</p>
+        </div>
+
+        <!-- Flap -->
+        <div class="flap"></div>
+
+        <!-- Clickable Heart Button -->
+        <button class="heart-seal" id="heartBtn">❤</button>
+      </div>
+
+      <p class="click-text" id="clickText">Click the Heart 💌</p>
+    </div>
+
+    <!-- Right Rose -->
+    <div class="rose rose-right">
+      <div class="flower">
+        <div class="petal p1"></div>
+        <div class="petal p2"></div>
+        <div class="petal p3"></div>
+        <div class="petal p4"></div>
+        <div class="petal center"></div>
+      </div>
+      <div class="stem"></div>
+      <div class="leaf leaf1"></div>
+      <div class="leaf leaf2"></div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
